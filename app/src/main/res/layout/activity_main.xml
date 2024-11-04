@@ -3,20 +3,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
     android:padding="16dp">
 
+    <!-- 초대 코드 표시 텍스트뷰 -->
     <TextView
         android:id="@+id/inviteCodeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="초대 코드 생성"
-        android:textSize="24sp"
-        android:padding="16dp" />
+        android:text="초대 코드가 여기에 표시됩니다."
+        android:textSize="18sp"
+        android:layout_gravity="center"
+        android:padding="16dp"
+        android:textStyle="bold" />
 
+    <!-- 초대 코드 생성 버튼 -->
     <Button
         android:id="@+id/generateButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="초대 코드 생성하기" />
+        android:text="초대 코드 생성"
+        android:layout_gravity="center"
+        android:padding="16dp"
+        android:layout_marginTop="16dp" />
+
 </LinearLayout>

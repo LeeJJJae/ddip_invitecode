@@ -1,17 +1,17 @@
 package com.example.ddip_invitecode;
 
-import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import android.os.StrictMode;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
-import java.util.Random;
-import android.os.StrictMode;
 import android.widget.Toast;
+
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import android.util.Log;
-
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         inviteCodeTextView = findViewById(R.id.inviteCodeTextView);
         generateButton = findViewById(R.id.generateButton);
 
-        // 버튼 클릭 시 새로운 초대 코드 생성 및 서버 저장
+        // 초대 코드 생성 및 서버에 저장
         generateButton.setOnClickListener(view -> {
             String inviteCode = generateInviteCode();
             inviteCodeTextView.setText(inviteCode);
@@ -53,13 +53,14 @@ public class MainActivity extends AppCompatActivity {
 
         new Thread(() -> {
             try {
-                URL url = new URL("http://10.0.2.2:8080/api/invite/create"); // 서버 주소 수정
+                URL url = new URL("http://10.0.2.2:8080/api/invite/create"); // 서버 주소 확인
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
                 conn.setRequestProperty("Content-Type", "application/json; utf-8");
                 conn.setDoOutput(true);
 
-                String jsonInputString = "{\"code\": \"" + inviteCode + "\"}";
+                String jsonInputString = "\"" + inviteCode + "\""; // 서버가 문자열로 받기 때문에 따옴표 추가
+
                 try (OutputStream os = conn.getOutputStream()) {
                     byte[] input = jsonInputString.getBytes("utf-8");
                     os.write(input, 0, input.length);
@@ -82,4 +83,3 @@ public class MainActivity extends AppCompatActivity {
         }).start();
     }
 }
-
